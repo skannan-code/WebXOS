@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <script src = "./script.js"></script>
+    <link rel="stylesheet" type = "text/css" href="styles.css" />
+    <title>WebXOS</title>
+    <style>
+        #desktop {
+            bottom: 40px;
+            left:0;
+            width: 100%;
+            height: calc(100vh - 40px);
+        }
+        #welcomeheader {
+            touch-action: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body style = "font-family: Comic Sans Ms,serif;background-image: url('https://images.stockcake.com/public/9/b/5/9b5fcb58-2c91-4b6c-86c1-3ea0f48fc717_large/cosmic-space-galaxy-stockcake.jpg');background-repeat: no-repeat;background-size: cover;">
+
+<script>
+    function updateTime() {
+        let currentTime = new Date().toLocaleString();
+        let timeText = document.querySelector("#timeElement");
+        timeText.innerHTML = currentTime;
+    }
+    setInterval(updateTime, 1000);
+</script>
+
+<div id = "splash-screen">
+    <div class = "splash-content">
+        <h1>Welcome to the WebXOS Secure Login System.</h1>
+        <div id = "loginPage">
+            <h1>Login</h1>
+            <input style = "border-radius: 5px; height: 45px;width:588px;" type = "text" id = "loginUser" placeholder = "Username Ex. JhonnyAppleseed123"><br><br>
+            <input style = "border-radius: 5px; height: 45px;width:588px;" type = "password" id = "loginPass" placeholder = "Password Ex. Appleseed@123"><br><br>
+            <button onclick= "login()">Login</button>
+            <p>Don't have an account? <span onclick="showSignup()" style="cursor:pointer;color:cyan;">WebXOS Secure Sign Up.</span></p>
+        </div>
+
+        <div id = "signupBox" style = "display:none;">
+            <h1>Sign Up</h1>
+            <input style = "border-radius: 5px; height: 45px;width:588px;" type= "text" id= "signupUser" placeholder= "Create a New Username Ex. JhonnyAppleseed123"><br><br>
+            <input style = "border-radius: 5px; height: 45px;width:588px;" type = "password" id = "signupPass" placeholder= "Create a New Password Ex. Appleseed@123"><br><br>
+            <button onclick= "signup()">Sign Up</button>
+            <p>Already have an account?
+                <span onclick="showLogin()" style="cursor:pointer;color:cyan;">WebXOS Secure Login</span>
+            </p>
+        </div>
+    </div>
+    <div>
+    <p id = "loginMessage"></p>
+
+    </div>
+</div>
+<div id = "taskbar" style = "display: flex;justify-content: space-between;align-items: center;color: darkslateblue;position:fixed;top:0;width:100%;height:2cm;background-color: lightblue;">
+    <h3 style="margin-left: 16px;font-weight:700;background-color:rgba(256,256,256,354);padding: 4px 12px; border-radius:77px;" id = "welcomeopen">WebXOS</h3>
+    <div id = "taskbar-apps-container" style = "display: flex; gap: 8px; flex-grow: 1; margin: 0 20px; overflow-x: auto;"></div>
+    <h3 id = "timeElement" style = "margin-right: 16px;background-color:rgba(256,256,256,0.9);padding: 4px 12px; border-radius:16px;">
+        3/15/2026 1:13 PM
+    </h3>
+    <button onclick = "logout()">Logout</button>
+</div>
+<div class = "selected" id = "desktopApps" style = "padding-top: 64px;padding-left:16px;">
+    <div id="notepadIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/0/07/Notepad_Win11.svg" style = "width:60px;height:62px;border-radius: 18px;" alt="Notepad Icon">
+        <p style = "margin: 1px; color: white;"><b>Notepad</b></p>
+    </div>
+    <div id = "googleIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1280px-Google_%22G%22_logo.svg.png" style = "width:60px;height:56px;border-radius: 18px;" alt="Google Icon">
+        <p style = "margin: 1px; color: white;"><b>Google</b></p>
+    </div>
+    <div id = "calculatorIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/5/55/Windows_Calculator_icon.png" style = "width:60px;height:56px;border-radius: 18px;" alt="Calculator Icon">
+        <p style = "margin: 1px; color: white;"><b>Calculator</b></p>
+    </div>
+    <div id = "IPHelpdeskIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://thumbs.dreamstime.com/b/bright-flat-ip-address-icon-showing-network-identity-digital-connection-symbol-ip-address-flat-colored-icon-internet-416629931.jpg" style = "width:60px;height:56px;border-radius: 18px;" alt="IP Helpdesk Icon">
+        <p style = "margin: 1px; color: white;"><b>IP Helpdesk</b></p>
+    </div>
+    <div id = "settingsIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Windows_Settings_icon.svg/960px-Windows_Settings_icon.svg.png" style = "width:60px;height:56px;border-radius: 18px;" alt="Settings Icon">
+        <p style = "margin: 1px; color: white;"><b>Settings</b></p>
+    </div>
+    <div id = "cameraIcon" style="text-align: center; padding: 16px;">
+        <img src = "https://img.icons8.com/fluent/1200/camera.jpg" style = "width:60px;height:56px;border-radius: 9px;" alt="Camera Icon">
+        <p style = "margin: 1px; color: white;"><b>Camera</b></p>
+    </div>
+</div>
+<div id = "desktop">
+    <div class = "window" id = "welcome" style = "max-height:calc(85vh - 145px);overflow-y: auto;">
+        <div class="windowheader" id="welcomeheader" style = "height: 58px;">
+            <div style="display:flex; gap:6px;">
+                <div class="closebutton" id="welcomeclose"></div>
+                <div class="minbutton" id="welcomemin"></div>
+                <div class="maxbutton" id="welcomemax"></div>
+            </div>
+            <h1>WebXOS Welcome Page</h1>
+        </div>
+        <h1 style = "margin:4px;">Welcome to WebXOS!</h1>
+        <h2>The newest, coolest operating system on the planet is in your hands. What do you plan to do with WebXOS?</h2>
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2hzOG9jODNrNHMwamN0Z2p1dnloOTNrcXU5dWM1bnNkM2U2MXIwciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1mOb5eHECMiCjm4kMy/giphy.gif" style="width:100%;height:auto;border-radius:16px;object-fit:cover;" alt="Freaking Out Gif">
+    </div>
+</div>
+<div class = "window" id = "notes" style = "padding-top: 10px;padding-left:16px;height: 11cm;width: 16cm;display:none;">
+    <div class = "windowheader" id = "notesheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "notesclose"></div>
+            <div class = "minbutton" id = "notesmin"></div>
+            <div class = "maxbutton" id = "notesmax"></div>
+        </div>
+        <h1 class = "headertext">Notepad</h1>
+        <div style = "width:16px; margin-right: 7px; height: 15px;"></div>
+    </div>
+    <div class = "notepad-content">
+        <textarea class = "notepad-text" placeholder = "Start typing here..."></textarea>
+    </div>
+</div>
+
+<div class = "window" id = "google" style = "padding-top: 10px;padding-left:16px;height: 16cm;width: 16cm;display:none;overflow-y: scroll;">
+    <div class = "windowheader" id = "googleheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "googleclose"></div>
+            <div class = "minbutton" id = "googlemin"></div>
+            <div class = "maxbutton" id = "googlemax"></div>
+        </div>
+        <h1 class = "headertext">Google</h1>
+        <div style = "width:16px; margin-right: 7px; height: 15px;"></div>
+    </div>
+    <div class = "google-container" style = "justify-content: center; text-align: center; align-items: center;">
+        <form method="GET" action="https://www.google.com/search" target = "_blank" rel = "noopener noreferrer">
+            <input name="q" type="text" placeholder="Search Google..." style = "height: 45px;">
+            <button type="submit">Search</button>
+        </form>
+        <img src = "https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Favicon_2025.svg" style = "width: 198px; height: 100px" alt = "Google Icon">
+        <img src = "https://cdn.logojoy.com/wp-content/uploads/20230801145544/Google-Logo-Evolution-Infographic-600x417.jpg" style = "width: 600px; height: 400px;" alt = "Google Evolution Logo">
+    </div>
+</div>
+
+<div class = "window" id = "calculator" style = "padding-top: 10px;padding-left:16px;height: 15cm;width: 16cm;display:none;">
+    <div class = "windowheader" id = "calculatorheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "calculatorclose"></div>
+            <div class = "minbutton" id = "calculatormin"></div>
+            <div class = "maxbutton" id = "calculatormax"></div>
+        </div>
+        <h1 class = "headertext">Calculator</h1>
+        <div style = "width:16px; margin-right: 7px; height: 15px;"></div>
+    </div>
+    <div class = "calculator-content">
+        <input type = "text" id = "display" disabled>
+        <div class = "buttons">
+            <button onclick = "clearDisplay()">C</button>
+            <button onclick = "backspace()">Back<br>Space</button>
+            <button onclick = "appendValue('/')">/</button>
+            <button onclick = "appendValue('*')">*</button>
+
+            <button onclick = "appendValue('1')">1</button>
+            <button onclick = "appendValue('2')">2</button>
+            <button onclick = "appendValue('3')">3</button>
+            <button onclick = "appendValue('-')">-</button>
+
+            <button onclick = "appendValue('4')">4</button>
+            <button onclick = "appendValue('5')">5</button>
+            <button onclick = "appendValue('6')">6</button>
+            <button onclick = "appendValue('+')">+</button>
+
+            <button onclick = "appendValue('7')">7</button>
+            <button onclick = "appendValue('8')">8</button>
+            <button onclick = "appendValue('9')">9</button>
+
+            <button onclick = "appendValue('0')">0</button>
+            <button onclick = "appendValue('.')">.</button>
+            <button onclick = "calculate()">=</button>
+        </div>
+    </div>
+</div>
+
+<div class = "window" id = "IPHelpdesk" style = "padding-top: 10px;padding-left:16px;height: 16cm;width: 16cm;display:none;">
+    <div class = "windowheader" id = "IPHelpdeskheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "IPHelpdeskclose"></div>
+            <div class = "minbutton" id = "IPHelpdeskmin"></div>
+            <div class = "maxbutton" id = "IPHelpdeskmax"></div>
+        </div>
+        <h1 class = "headertext">IP Helpdesk</h1>
+        <div style = "width:16px; margin-right: 7px; height: 15px;"></div>
+    </div>
+    <div class = "IPHelpdesk-content" style = "justify-content: center; text-align: center; align-items: center;">
+        <h3>Welcome New User!<br>Your Current IP Address is: <span id = "user-ip">Loading...</span></h3>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('user-ip').textContent = data.ip;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching IP Address:', error);
+                        document.getElementById('user-ip').textContent = 'Error fetching IP Address: _____________ Check your system settings.';
+                    });
+            });
+        </script>
+        <img src = "https://cdn-icons-png.freepik.com/512/6159/6159318.png" style = "width: 600px; height: 450px;" alt = "IP Address Locator Icon">
+    </div>
+</div>
+<div class = "window" id = "settings" style = "padding-top: 10px;padding-left:16px;height: 16cm;width: 16cm;display:none;">
+    <div class = "windowheader" id = "settingsheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "settingsclose"></div>
+            <div class = "minbutton" id = "settingsmin"></div>
+            <div class = "maxbutton" id = "settingsmax"></div>
+        </div>
+        <h1 class = "headertext">Settings</h1>
+        <div style = "width:16px; margin-right: 7px; height: 15px;"></div>
+    </div>
+    <div class = "settings-container" style = "justify-content: center; text-align: center; align-items: center;padding: 15px; font-family: sans-serif; overflow-y: auto;height: calc(100% - 60px)">
+        <section>
+            <h2 style = "margin-top:0;" >Display Settings</h2>
+            <label>Brightness</label><br>
+            <input type = "range" id = "brightnessRange" min = "20" max = "200" value = "100"><br><br>
+            <label>Contrast</label><br>
+            <input type = "range" id = "contrastRange" min = "20" max = "200" value = "100"><br><br>
+        </section>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
+
+        <section>
+            <h3>Wallpapers</h3>
+            <div id = "wallpaperGallery" style = "display: grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom: 15px;">
+                <img src = "https://i.pinimg.com/736x/15/61/58/1561587aef2154176057c566903f1abe.jpg" alt = "Forest Lake Background" class="preset-thumb" onclick="setWallpaper(this.src)" style="width:100%; height:80px; object-fit:cover; border-radius:8px; border: 2px solid transparent;">
+                <img src = "https://www.foresthomesstore.com/cdn/shop/files/Iceland-Mornings-Mural-Wallpaper-2_1000x.jpg?v=1690919204" alt = "Canyon Waterfall" class="preset-thumb" onclick="setWallpaper(this.src)" style="width:100%; height:80px; object-fit:cover; border-radius:8px; border: 2px solid transparent;">
+                <img src = "https://w0.peakpx.com/wallpaper/484/714/HD-wallpaper-nordic-landscape-beautiful-mountain-scenery.jpg" alt = "Mountain Scenery" class="preset-thumb" onclick="setWallpaper(this.src)" style="width:100%; height:80px; object-fit:cover; border-radius:8px; border: 2px solid transparent;">
+                <img src = "https://img.freepik.com/premium-photo/mountains-with-lake-landscape-nature-outdoors_53876-623086.jpg?semt=ais_incoming&w=740&q=80" alt = "Forest Lake Sunset" class="preset-thumb" onclick="setWallpaper(this.src)" style="width:100%; height:80px; object-fit:cover; border-radius:8px; border: 2px solid transparent;">
+            </div>
+
+            <label>Custom URL: </label>
+            <div style = "display: flex; gap: 5px;">
+                <input type = "text" id = "wallpaperInput" placeholder = "Paste Background Image URL..." style = "flex-grow:1; border-radius: 4px; border: 1px solid #ccc;">
+                <button onclick="changeWallpaper()" style="height:30px; width:60px; font-size:12px;">Apply</button>
+            </div>
+        </section>
+    </div>
+</div>
+<div class = "window" id = "camera" style = "padding-top: 10px;padding-left:16px;height: 16cm;width: 16cm;display:none;overflow-y: scroll;">
+    <div class = "windowheader" id = "cameraheader">
+        <div style = "display:flex; gap: 6px;">
+            <div class = "closebutton" id = "cameraclose"></div>
+            <div class = "minbutton" id = "cameramin"></div>
+            <div class = "maxbutton" id = "cameramax"></div>
+        </div>
+        <h1 class = "headertext">Camera Legacy Application!<br>Say cheese!</h1>
+    </div>
+    <div class = "camera-container" style = "justify-content: center; text-align: center; align-items: center;">
+        <video id = "cameraVideo" autoplay playsinline
+            style = "width: 100%; border-radius: 8px; border: 2px solid transparent;">
+        </video>
+        <br><br>
+        <button onclick = "takePhoto()">Take<br>Photo</button>
+        <canvas id = "cameraCanvas" style = "display: none;"></canvas>
+    </div>
+</div>
+</body>
+</html>
